@@ -17,4 +17,3 @@ docker run -p 3000:3000 nodejs-simple-web
 Visit: http://localhost:3000
 
 ---
-**Created by Sushant Sonbarse** | [GitHub](https://github.com/sonbarse17/)
