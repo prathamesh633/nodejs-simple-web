@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Docker container and show output
         run: |
-          docker run --name test-container -d ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          docker run --name test-container -d ${{ secrets.DOCKER_USERNAME }}/nodejs-app:latest
           sleep 5  # Wait for app to start
           docker logs test-container
           docker stop test-container
