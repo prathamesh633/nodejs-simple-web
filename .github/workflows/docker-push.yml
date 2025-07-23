@@ -32,3 +32,15 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/nodejs-app:latest
+
+      - name: Pull Docker image
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/nodejs-app:latest
+
+      - name: Run Docker container and show output
+        run: |
+          docker run --name test-container -d ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          sleep 5  # Wait for app to start
+          docker logs test-container
+          docker stop test-container
+          docker rm test-container
+
