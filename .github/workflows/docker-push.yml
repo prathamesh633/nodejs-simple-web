@@ -33,14 +33,22 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/nodejs-app:latest
 
+      # Pull Docker image
       - name: Pull Docker image
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/nodejs-app:latest
 
-      - name: Run Docker container and show output
+      # Run Docker container and capture logs
+      - name: Run Docker container and save logs
         run: |
           docker run --name test-container -d ${{ secrets.DOCKER_USERNAME }}/nodejs-app:latest
           sleep 5  # Wait for app to start
-          docker logs test-container
+          docker logs test-container > container-logs.txt
           docker stop test-container
           docker rm test-container
 
+      # Upload Docker logs as artifact
+      - name: Upload container logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-container-logs
+          path: container-logs.txt
